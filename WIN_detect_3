@@ -1,0 +1,8 @@
+$drives = Get-PSDrive -PSProvider 'FileSystem'
+Invoke-WebRequest -Uri "https://github.com/hillu/local-log4j-vuln-scanner/releases/download/v0.10/local-log4j-vuln-scanner.exe" -OutFile log4j_scan.exe 
+foreach($drive in $drives) {
+    write-output "________________________________________"
+    Write-Output "Scan du disque $drive"
+    .\log4j_scan.exe --quiet $drive.root
+}
+Remove-Item "log4j_scan.exe" -Force -Verbose
